@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Nocco Example Site</title>
+    <link>http://localhost:1313/</link>
+    <description>Recent content on Nocco Example Site</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <lastBuildDate>Tue, 16 Jan 2024 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title></title>
+      <link>http://localhost:1313/post/short-note/</link>
+      <pubDate>Tue, 16 Jan 2024 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/post/short-note/</guid>
+      <description>&lt;p&gt;Just a quick note without a title. This is how microblog-style posts appear in the theme.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Hello World</title>
+      <link>http://localhost:1313/post/hello-world/</link>
+      <pubDate>Mon, 15 Jan 2024 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/post/hello-world/</guid>
+      <description>&lt;p&gt;This is a sample post with a title. It demonstrates how the theme renders titled articles with the full header including the post name and date.&lt;/p&gt;&#xA;&lt;p&gt;Here&amp;rsquo;s some example content with &lt;strong&gt;bold&lt;/strong&gt; and &lt;em&gt;italic&lt;/em&gt; text.&lt;/p&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;This is a blockquote to test the accent styling.&lt;/p&gt;&#xA;&lt;/blockquote&gt;&#xA;&lt;p&gt;And some &lt;code&gt;inline code&lt;/code&gt; for good measure.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>About</title>
+      <link>http://localhost:1313/about/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/about/</guid>
+      <description>&lt;p&gt;This is a sample about page to test the static page layout.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

@@ -1,0 +1,20 @@
+baseURL = "http://localhost:1313/"
+title = "Nocco Example Site"
+theme = "nocco"
+
+[params]
+theme_seconds = "1"
+description = "A minimal example site for the Nocco theme."
+
+[params.author]
+username = "example"
+
+[[menus.main]]
+name = "About"
+url = "/about/"
+weight = 1
+
+[[menus.main]]
+name = "Archive"
+url = "/post/"
+weight = 2
