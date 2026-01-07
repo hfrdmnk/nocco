@@ -1,27 +1,80 @@
+@font-face {
+	font-family: 'Departure Mono';
+	src: url('/fonts/DepartureMono-Regular.woff2') format('woff2');
+	font-weight: 400;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Host Grotesk';
+	src: url('/fonts/HostGrotesk-VariableFont_wght.ttf') format('truetype');
+	font-weight: 300 800;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Host Grotesk';
+	src: url('/fonts/HostGrotesk-Italic-VariableFont_wght.ttf') format('truetype');
+	font-weight: 300 800;
+	font-style: italic;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Inter';
+	src: url('/fonts/Inter-VariableFont_opsz,wght.ttf') format('truetype');
+	font-weight: 100 900;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Inter';
+	src: url('/fonts/Inter-Italic-VariableFont_opsz,wght.ttf') format('truetype');
+	font-weight: 100 900;
+	font-style: italic;
+	font-display: swap;
+}
+
 :root {
-	--background: white;
-	--background-alt: #e6e6e6;
-	--text: #222222;
-	--text-alt: #666666;
-	--accent: #ff003f;
-	--accent-alt: #fff7f9;
+	--bg: #f7f7f4;
+	--text: #2a2720;
+	--text-secondary: oklch(from #2a2720 l c h / 60%);
+	--text-tertiary: oklch(from #2a2720 l c h / 40%);
+	--accent: #ff5800;
+
+	--font-headings: 'Host Grotesk', ui-sans-serif, system-ui, sans-serif,
+		'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+	--font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif,
+		'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+	--font-mono: 'Departure Mono', ui-monospace, SFMono-Regular, Menlo, Monaco,
+		Consolas, 'Liberation Mono', 'Courier New', monospace;
+
+	--text-sm: clamp(0.89rem, 0.02vi + 0.88rem, 0.9rem);
+	--text-base: clamp(1rem, 0.23vi + 0.94rem, 1.13rem);
+	--text-md: clamp(1.13rem, 0.51vi + 1rem, 1.41rem);
+	--text-lg: clamp(1.27rem, 0.89vi + 1.04rem, 1.76rem);
+	--text-xl: clamp(1.42rem, 1.41vi + 1.07rem, 2.2rem);
+	--text-xxl: clamp(1.6rem, 2.08vi + 1.08rem, 2.75rem);
+	--text-xxxl: clamp(1.8rem, 2.97vi + 1.06rem, 3.43rem);
 }
 
 @media (prefers-color-scheme: dark) {
 	:root {
-		--background: black;
-		--background-alt: #121212;
+		--bg: #121212;
 		--text: #eeeeee;
-		--text-alt: #bbbbbb;
-		--accent-alt: #1f0008;
+		--text-secondary: oklch(from #eeeeee l c h / 60%);
+		--text-tertiary: oklch(from #eeeeee l c h / 40%);
 	}
 }
 
 html {
-	background-color: var(--background);
-	color: var(--text);
-	font-family: sans-serif;
-	line-height: 1.6;
+	background-color: var(--bg);
+	color: var(--text-secondary);
+	font-family: var(--font-sans);
+	line-height: 1.5;
 	font-size: 16px;
 }
 
@@ -32,9 +85,30 @@ body {
 	padding: 0 16px;
 }
 
+h1,
+h2 {
+	font-family: var(--font-headings);
+	color: var(--text);
+	font-weight: 400;
+}
+
+h1 {
+	font-size: var(--text-xxxl);
+	line-height: 1.1;
+}
+
+h2 {
+	font-size: var(--text-xxl);
+	line-height: 1.2;
+}
+
 a {
-	color: var(--accent);
+	color: inherit;
 	text-decoration: none;
+}
+
+:not(h1, h2, h3, h4, h5, h6) > a {
+	font-family: var(--font-mono);
 }
 
 article header h1 a {
@@ -46,7 +120,7 @@ article header h1 {
 }
 
 article header time {
-	color: var(--text-alt);
+	color: var(--text-secondary);
 }
 
 main {
@@ -69,7 +143,7 @@ menu li {
 
 menu li:after {
 	content: ' | ';
-	color: var(--background-alt);
+	color: var(--text-tertiary);
 }
 
 menu li:last-child:after {
@@ -94,15 +168,15 @@ article {
 
 hr {
 	border: none;
-	border-top: 1px double var(--background-alt);
-	color: var(--background-alt);
+	border-top: 1px double var(--text-tertiary);
+	color: var(--text-tertiary);
 	overflow: visible;
 	text-align: center;
 	height: 4px;
 }
 
 hr:after {
-	background: var(--background);
+	background: var(--bg);
 	content: '§';
 	padding: 0 4px;
 	position: relative;
@@ -110,22 +184,22 @@ hr:after {
 }
 
 blockquote {
-	border-left: 2px solid var(--background-alt);
+	border-left: 2px solid var(--accent);
 	padding-left: 1em;
 	margin-left: 1em;
-	border-left-color: var(--accent);
 }
 
 code {
+	font-family: var(--font-mono);
 	color: var(--accent);
-	background-color: var(--accent-alt);
+	background-color: oklch(from var(--accent) l c h / 10%);
 	padding: 3px;
 	border-radius: 0.4em;
 	font-size: 16px;
 }
 
 pre {
-	background-color: var(--accent-alt);
+	background-color: oklch(from var(--accent) l c h / 10%);
 	border-radius: 0.4em;
 }
 
@@ -133,7 +207,9 @@ pre code {
 	background-color: inherit;
 }
 
-img, video, iframe {
+img,
+video,
+iframe {
 	max-width: 100%;
 	height: auto;
 }
@@ -145,7 +221,7 @@ img, video, iframe {
 .microblog_post {
 	padding-top: 16px;
 	margin: 16px 0;
-	border-top: 1px solid var(--background-alt);
+	border-top: 1px solid var(--text-tertiary);
 }
 
 .microblog_avatar {
@@ -153,7 +229,7 @@ img, video, iframe {
 }
 
 .microblog_time a {
-	color: var(--text-alt);
+	color: var(--text-secondary);
 }
 
 .bookshelf_book {
@@ -170,12 +246,12 @@ img, video, iframe {
 	margin-right: 8px;
 	padding-right: 0 !important;
 	border-radius: 6px !important;
-	background-color: var(--background-alt);
+	background-color: var(--text-tertiary);
 	justify-content: center;
 }
 
 .bookshelf_author {
-	color: var(--text-alt);
+	color: var(--text-secondary);
 	font-weight: 500;
 	font-size: 1em;
 }
@@ -183,4 +259,8 @@ img, video, iframe {
 .bookshelf_title {
 	font-weight: 600;
 	font-size: 1em;
+}
+
+.font-mono {
+	font-family: var(--font-mono);
 }
