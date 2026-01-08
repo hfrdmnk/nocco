@@ -1,0 +1,18 @@
+<aside class="sidebar" id="sidebar">
+	<nav class="sidebar__nav">
+		<ul class="sidebar__links">
+			<li><a href="/">/</a></li>
+			{{ range .Site.Menus.main }}
+			<li><a href="{{ .URL | relLangURL | safeURL }}">/{{ .Name | lower }}</a></li>
+			{{ end }}
+		</ul>
+		{{ with .Site.Params.social }}
+		<hr class="sidebar__separator" />
+		<ul class="sidebar__social">
+			{{ with .mastodon }}<li><a href="{{ . }}" rel="me">@Mastodon</a></li>{{ end }}
+			{{ with .bluesky }}<li><a href="{{ . }}">@Bluesky</a></li>{{ end }}
+			{{ with .email }}<li><a href="mailto:{{ . }}">@Mail</a></li>{{ end }}
+		</ul>
+		{{ end }}
+	</nav>
+</aside>

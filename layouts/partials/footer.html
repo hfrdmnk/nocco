@@ -1,3 +1,8 @@
-<footer>
-	{{ .Site.Params.description | safeHTML }}
+<footer class="site-footer">
+	{{ with .Site.Params.footer_quote }}
+	<span class="site-footer__quote">{{ . }}</span>
+	{{ end }}
+	<a href="#" class="ascii-button" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">
+		<span class="ascii-button__bracket">[</span><span class="ascii-button__text">back to top</span><span class="ascii-button__bracket">]</span>
+	</a>
 </footer>

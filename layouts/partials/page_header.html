@@ -1,0 +1,14 @@
+{{ if not .IsHome }}
+<div class="page-header">
+	<div class="page-header__slug">/{{ with .File }}{{ .ContentBaseName }}{{ else }}{{ .Title | urlize }}{{ end }}</div>
+	{{ if .Parent }}
+	<a href="{{ .Parent.Permalink }}" class="ascii-button">
+		<span class="ascii-button__bracket">[</span><span class="ascii-button__text">back</span><span class="ascii-button__bracket">]</span>
+	</a>
+	{{ else if and (not .IsSection) .Section }}
+	<a href="/{{ .Section }}/" class="ascii-button">
+		<span class="ascii-button__bracket">[</span><span class="ascii-button__text">back</span><span class="ascii-button__bracket">]</span>
+	</a>
+	{{ end }}
+</div>
+{{ end }}

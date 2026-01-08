@@ -1,14 +1,18 @@
 <!DOCTYPE html>
 <html>
 	{{ partial "head.html" . }}
-	<body>
-		{{ partial "header.html" . }} {{ partial "navigation.html" . }}
-		<hr />
-		<main>{{ block "main" . }}{{ end }}</main>
-		<hr />
-		{{ partial "footer.html" . }} {{ partial "custom_footer.html" . }} {{
-		range .Site.Params.plugins_js }}
+	<body class="site-layout">
+		{{ partial "header.html" . }}
+		{{ partial "sidebar.html" . }}
+		<main class="site-main">
+			{{ partial "page_header.html" . }}
+			{{ block "main" . }}{{ end }}
+		</main>
+		{{ partial "footer.html" . }}
+		{{ partial "custom_footer.html" . }}
+		{{ range .Site.Params.plugins_js }}
 		<script src="{{ . }}"></script>
 		{{ end }}
+		<script src="{{ "js/menu.js" | relURL }}"></script>
 	</body>
 </html>

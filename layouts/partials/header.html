@@ -1,3 +1,9 @@
-<header>
-	<h1><a href="/">{{ .Site.Title }}</a></h1>
+<header class="site-header">
+	<a href="/" class="site-header__title">{{ .Site.Title }}</a>
+	{{ with .Site.Params.header_quote }}
+	<span class="site-header__quote">{{ . }}</span>
+	{{ end }}
+	<button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+		<span>&#9776;</span>
+	</button>
 </header>
