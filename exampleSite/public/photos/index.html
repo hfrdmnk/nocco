@@ -6,16 +6,19 @@
 
 	<title>
 		
-		 Nocco Example Site - About 
+		 Nocco Example Site - Photos 
 		
 	</title>
 
-	<meta name="description" content="This is a sample about page to test the static page layout.">
+	<meta name="description" content="">
 	<link rel="shortcut icon" href="https://micro.blog/example/favicon.png" type="image/x-icon" />
 	<link rel="stylesheet" href="/css/style.css?1">
 	<link rel="stylesheet" href="/custom.css?1">
 
-	
+	<link rel="alternate" type="application/rss+xml" title="Nocco Example Site"	href="/photos/index.xml"/>
+	<link rel="alternate" type="application/rss+xml" title="Podcast" href="http://localhost:1313/podcast.xml" />
+	<link rel="alternate" type="application/json" title="Nocco Example Site" href="http://localhost:1313/feed.json" />
+	<link rel="EditURI" type="application/rsd+xml" href="http://localhost:1313/rsd.xml" />
 	
 	
 	<link rel="me" href="https://micro.blog/example" />
@@ -25,7 +28,7 @@
 	<link rel="microsub" href="https://micro.blog/microsub" />
 	<link rel="webmention" href="https://micro.blog/webmention" />
 	<link rel="subscribe" href="https://micro.blog/users/follow" />
-	<link rel="canonical" href="http://localhost:1313/about/"> 
+	<link rel="canonical" href="http://localhost:1313/photos/"> 
 	
 	
 </head>
@@ -66,7 +69,7 @@
 		<main class="site-main">
 			
 <div class="page-header">
-	<div class="page-header__slug">/about</div>
+	<div class="page-header__slug">/photos</div>
 	
 	<a href="http://localhost:1313/" class="ascii-button">
 		<span class="ascii-button__bracket">[</span><span class="ascii-button__text">back</span><span class="ascii-button__bracket">]</span>
@@ -76,13 +79,45 @@
 
 
 			
-<article class="h-entry">
-	<header class="p-name">
-		<h1><a href="http://localhost:1313/about/">About</a></h1>
-	</header>
-	<p>This is a sample about page to test the static page layout.</p>
+<div class="photos-grid">
+	
+	
+	
+		
+		
+		
+		
+			
+		
 
-</article>
+		
+		
+
+		<a href="http://localhost:1313/post/example-photo/" class="photos-grid__item">
+			
+			<img src="https://images.unsplash.com/photo-1501594907352-04cda38ebc29?w=800&amp;h=800&amp;fit=crop" alt="">
+			
+			<time class="photos-grid__date">10.02.2024</time>
+		</a>
+	
+		
+		
+		
+		
+			
+		
+
+		
+		
+
+		<a href="http://localhost:1313/post/example-photo-2/" class="photos-grid__item">
+			
+			<img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&amp;h=800&amp;fit=crop" alt="">
+			
+			<time class="photos-grid__date">28.01.2024</time>
+		</a>
+	
+</div>
 
 		</main>
 		<footer class="site-footer">

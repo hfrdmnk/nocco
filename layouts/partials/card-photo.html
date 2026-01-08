@@ -1,0 +1,46 @@
+{{/* Photo card: Instagram-style with image, date, and location */}}
+{{/* Extract first image from content */}}
+{{ $image := "" }}
+{{ $imageMatches := findRE `!\[.*?\]\((.*?)\)` .RawContent 1 }}
+{{ with $imageMatches }}
+	{{ $image = index . 0 | replaceRE `!\[.*?\]\(` "" | replaceRE `\)$` "" }}
+{{ end }}
+
+{{/* Also try HTML img tags */}}
+{{ if not $image }}
+	{{ $imgMatches := findRE `<img[^>]+src=["']([^"']+)["']` .RawContent 1 }}
+	{{ with $imgMatches }}
+		{{ $image = index . 0 | replaceRE `<img[^>]+src=["']` "" | replaceRE `["']$` "" }}
+	{{ end }}
+{{ end }}
+
+{{/* Extract location: first non-empty text line after removing image */}}
+{{ $location := "" }}
+{{ $contentWithoutImage := .RawContent | replaceRE `!\[.*?\]\(.*?\)\s*` "" | replaceRE `<img[^>]*>\s*` "" }}
+{{ $lines := split $contentWithoutImage "\n" }}
+{{ range $lines }}
+	{{ $trimmed := trim . " \r\n\t" }}
+	{{ if and (not $location) $trimmed }}
+		{{ $location = $trimmed }}
+	{{ end }}
+{{ end }}
+
+<a href="{{ .Permalink }}" class="card card--photo h-entry u-url">
+	{{ with $image }}
+	<img src="{{ . }}" alt="" class="card__image u-photo">
+	{{ end }}
+	<footer class="card__footer">
+		<time class="card__date dt-published" datetime="{{ .Date.Format "2006-01-02" }}">
+			{{ .Date.Format "2 January 2006" }}
+		</time>
+		{{ with $location }}
+		<span class="card__location p-location">
+			<svg class="card__location-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+				<path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+				<circle cx="12" cy="10" r="3"/>
+			</svg>
+			{{ . }}
+		</span>
+		{{ end }}
+	</footer>
+</a>

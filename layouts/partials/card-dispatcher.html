@@ -1,0 +1,15 @@
+{{/* Dispatch to the appropriate card partial based on category */}}
+{{ $category := "" }}
+{{ with .GetTerms "categories" }}
+	{{ $category = (index . 0).Title | lower }}
+{{ end }}
+
+{{ if eq $category "macro" }}
+	{{ partial "card-macro.html" . }}
+{{ else if eq $category "photo" }}
+	{{ partial "card-photo.html" . }}
+{{ else if eq $category "race" }}
+	{{ partial "card-race.html" . }}
+{{ else }}
+	{{ partial "card-default.html" . }}
+{{ end }}

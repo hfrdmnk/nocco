@@ -1,9 +1,8 @@
 {{ define "main" }}
+<div class="card-list">
 {{ range ( .Paginate (where .Site.RegularPages "Type" "post")).Pages }}
-<article class="h-entry">
-	{{ partial "article_header.html" . }}
-	{{ .Content }}
-</article>
-	{{ end }}
+	{{ partial "card-dispatcher.html" . }}
+{{ end }}
+</div>
 {{ partial "pagination.html" .}}
 {{ end }}

@@ -1,0 +1,67 @@
+{{/* Race card: Race result with title, stats (distance/time/pace), date and location */}}
+{{/* Parse race data from content lines:
+     Line 1: Race title
+     Line 2: Location
+     Line 3: Distance
+     Line 4: Time
+     Line 5: Pace
+*/}}
+{{ $lines := split .RawContent "\n" }}
+{{ $raceTitle := "" }}
+{{ $location := "" }}
+{{ $distance := "" }}
+{{ $time := "" }}
+{{ $pace := "" }}
+{{ $lineCount := 0 }}
+
+{{ range $lines }}
+	{{ $trimmed := trim . " \r\n\t" }}
+	{{ if $trimmed }}
+		{{ if eq $lineCount 0 }}{{ $raceTitle = $trimmed }}{{ end }}
+		{{ if eq $lineCount 1 }}{{ $location = $trimmed }}{{ end }}
+		{{ if eq $lineCount 2 }}{{ $distance = $trimmed }}{{ end }}
+		{{ if eq $lineCount 3 }}{{ $time = $trimmed }}{{ end }}
+		{{ if eq $lineCount 4 }}{{ $pace = $trimmed }}{{ end }}
+		{{ $lineCount = add $lineCount 1 }}
+	{{ end }}
+{{ end }}
+
+<a href="{{ .Permalink }}" class="card card--race h-entry u-url">
+	<header class="card__header">
+		<h2 class="card__title p-name">{{ $raceTitle }}</h2>
+	</header>
+	<div class="card__stats">
+		{{ with $distance }}
+		<div class="card__stat">
+			<div class="card__stat-value">{{ . }}</div>
+			<div class="card__stat-label">distance</div>
+		</div>
+		{{ end }}
+		{{ with $time }}
+		<div class="card__stat">
+			<div class="card__stat-value">{{ . }}</div>
+			<div class="card__stat-label">time</div>
+		</div>
+		{{ end }}
+		{{ with $pace }}
+		<div class="card__stat">
+			<div class="card__stat-value">{{ . }}</div>
+			<div class="card__stat-label">pace</div>
+		</div>
+		{{ end }}
+	</div>
+	<footer class="card__footer">
+		<time class="card__date dt-published" datetime="{{ .Date.Format "2006-01-02" }}">
+			{{ .Date.Format "2 January 2006" }}
+		</time>
+		{{ with $location }}
+		<span class="card__location p-location">
+			<svg class="card__location-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+				<path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+				<circle cx="12" cy="10" r="3"/>
+			</svg>
+			{{ . }}
+		</span>
+		{{ end }}
+	</footer>
+</a>

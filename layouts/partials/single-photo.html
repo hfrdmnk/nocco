@@ -1,0 +1,59 @@
+{{/* Single view for photo posts */}}
+{{/* Extract first image and location from content */}}
+{{ $image := "" }}
+{{ $imageMatches := findRE `!\[.*?\]\((.*?)\)` .RawContent 1 }}
+{{ with $imageMatches }}
+	{{ $image = index . 0 | replaceRE `!\[.*?\]\(` "" | replaceRE `\)$` "" }}
+{{ end }}
+
+{{/* Also try HTML img tags */}}
+{{ if not $image }}
+	{{ $imgMatches := findRE `<img[^>]+src=["']([^"']+)["']` .RawContent 1 }}
+	{{ with $imgMatches }}
+		{{ $image = index . 0 | replaceRE `<img[^>]+src=["']` "" | replaceRE `["']$` "" }}
+	{{ end }}
+{{ end }}
+
+{{/* Extract location: first non-empty text line after removing image */}}
+{{ $location := "" }}
+{{ $contentWithoutImage := .RawContent | replaceRE `!\[.*?\]\(.*?\)\s*` "" | replaceRE `<img[^>]*>\s*` "" }}
+{{ $lines := split $contentWithoutImage "\n" }}
+{{ $restContent := slice }}
+{{ $foundLocation := false }}
+
+{{ range $lines }}
+	{{ $trimmed := trim . " \r\n\t" }}
+	{{ if $trimmed }}
+		{{ if not $foundLocation }}
+			{{ $location = $trimmed }}
+			{{ $foundLocation = true }}
+		{{ else }}
+			{{ $restContent = $restContent | append $trimmed }}
+		{{ end }}
+	{{ end }}
+{{ end }}
+
+<article class="single-photo h-entry">
+	{{ with $image }}
+	<img src="{{ . }}" alt="" class="single-photo__image u-photo">
+	{{ end }}
+	<div class="single-photo__meta">
+		<time class="card__date dt-published" datetime="{{ .Date.Format "2006-01-02" }}">
+			{{ .Date.Format "2 January 2006" }}
+		</time>
+		{{ with $location }}
+		<span class="card__location p-location">
+			<svg class="card__location-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+				<path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+				<circle cx="12" cy="10" r="3"/>
+			</svg>
+			{{ . }}
+		</span>
+		{{ end }}
+	</div>
+	{{ if $restContent }}
+	<div class="single-photo__content e-content">
+		{{ delimit $restContent "\n\n" | markdownify }}
+	</div>
+	{{ end }}
+</article>

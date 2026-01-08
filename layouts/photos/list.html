@@ -1,0 +1,29 @@
+{{ define "main" }}
+<div class="photos-grid">
+	{{/* Get all posts with category "photo" */}}
+	{{ $photoPages := where .Site.RegularPages "Params.categories" "intersect" (slice "photo") }}
+	{{ range $photoPages.ByDate.Reverse }}
+		{{/* Extract first image from content */}}
+		{{ $image := "" }}
+		{{ $imageMatches := findRE `!\[.*?\]\((.*?)\)` .RawContent 1 }}
+		{{ with $imageMatches }}
+			{{ $image = index . 0 | replaceRE `!\[.*?\]\(` "" | replaceRE `\)$` "" }}
+		{{ end }}
+
+		{{/* Also try HTML img tags */}}
+		{{ if not $image }}
+			{{ $imgMatches := findRE `<img[^>]+src=["']([^"']+)["']` .RawContent 1 }}
+			{{ with $imgMatches }}
+				{{ $image = index . 0 | replaceRE `<img[^>]+src=["']` "" | replaceRE `["']$` "" }}
+			{{ end }}
+		{{ end }}
+
+		<a href="{{ .Permalink }}" class="photos-grid__item">
+			{{ with $image }}
+			<img src="{{ . }}" alt="">
+			{{ end }}
+			<time class="photos-grid__date">{{ .Date.Format "02.01.2006" }}</time>
+		</a>
+	{{ end }}
+</div>
+{{ end }}

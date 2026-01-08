@@ -1,0 +1,16 @@
+{{/* Macro card: Traditional blog post with title, excerpt, and date */}}
+<a href="{{ .Permalink }}" class="card card--macro h-entry u-url">
+	<header>
+		{{ with .Title }}
+		<h2 class="card__title p-name">{{ . }}</h2>
+		{{ end }}
+	</header>
+	<div class="card__excerpt p-summary">
+		{{ .Summary | truncate 200 }}
+	</div>
+	<footer>
+		<time class="card__date dt-published" datetime="{{ .Date.Format "2006-01-02" }}">
+			{{ .Date.Format "2 January 2006" }}
+		</time>
+	</footer>
+</a>

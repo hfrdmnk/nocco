@@ -1,17 +1,27 @@
 {{ define "main" }}
+{{/* Check if this is a race post */}}
+{{ $category := "" }}
+{{ with .GetTerms "categories" }}
+	{{ $category = (index . 0).Title | lower }}
+{{ end }}
+
+{{ if eq $category "race" }}
+	{{ partial "single-race.html" . }}
+{{ else if eq $category "photo" }}
+	{{ partial "single-photo.html" . }}
+{{ else }}
 <article class="h-entry">
 	<header>
 		{{ if .Title }}
 		<h1 class="p-name"><a href="{{ .Permalink }}">{{ .Title }}</a></h1>
 		{{ end }}
-		<a href="{{ .Permalink }}" class="u-url">
-			<time class="dt-published">
+		<time class="card__date dt-published">
 			{{ .Date.Format "2 January 2006" }}
-			</time>
-		</a>
+		</time>
 	</header>
 	{{ .Content }}
 </article>
+{{ end }}
 {{ if .Site.Params.include_conversation }}
 <script type="text/javascript" src="https://micro.blog/conversation.js?url={{ .Permalink }}"></script>
 {{ end }}
