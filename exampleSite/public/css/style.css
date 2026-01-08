@@ -1,3 +1,7 @@
+/* ==========================================================================
+   Fonts
+   ========================================================================== */
+
 @font-face {
 	font-family: 'Departure Mono';
 	src: url('/fonts/DepartureMono-Regular.woff2') format('woff2');
@@ -38,6 +42,10 @@
 	font-display: swap;
 }
 
+/* ==========================================================================
+   Custom Properties
+   ========================================================================== */
+
 :root {
 	--bg: #f7f7f4;
 	--text: #2a2720;
@@ -62,16 +70,14 @@
 	--text-xxxl: clamp(1.8rem, 2.97vi + 1.06rem, 3.43rem);
 
 	--content-width: 40rem;
-	--sidebar-width: 16rem;
+	--sidebar-width: 12rem;
 	--column-gap: 4rem;
 	--row-gap: 2rem;
 	--site-max-width: calc(
 		2 * var(--sidebar-width) + var(--content-width) + 2 * var(--column-gap)
 	);
-}
 
-@media (prefers-color-scheme: dark) {
-	:root {
+	@media (prefers-color-scheme: dark) {
 		--bg: #121212;
 		--text: #eeeeee;
 		--text-secondary: oklch(from #eeeeee l c h / 0.6);
@@ -79,6 +85,10 @@
 		--border: oklch(from #eeeeee l c h / 0.2);
 	}
 }
+
+/* ==========================================================================
+   Base Styles
+   ========================================================================== */
 
 ::selection {
 	background: oklch(from var(--accent) l c h / 0.1);
@@ -94,24 +104,9 @@ html {
 	font-size: 16px;
 }
 
-body.site-layout {
-	display: grid;
-	grid-template-areas:
-		'.       header  .'
-		'sidebar main    .'
-		'.       footer  .';
-	grid-template-columns: var(--sidebar-width) var(--content-width) var(
-			--sidebar-width
-		);
-	grid-template-rows: auto 1fr auto;
-	column-gap: var(--column-gap);
-	row-gap: var(--row-gap);
-	padding: 0 2rem;
-	min-height: 100vh;
-	width: 100%;
-	max-width: var(--site-max-width);
-	margin: 0 auto;
-}
+/* ==========================================================================
+   Typography
+   ========================================================================== */
 
 h1,
 h2 {
@@ -139,18 +134,38 @@ a {
 	font-family: var(--font-mono);
 }
 
-article header h1 a {
-	color: var(--text);
+/* ==========================================================================
+   Layout
+   ========================================================================== */
+
+body.site-layout {
+	display: grid;
+	grid-template-areas:
+		'.       header  .'
+		'sidebar main    .'
+		'.       footer  .';
+	grid-template-columns: var(--sidebar-width) var(--content-width) var(
+			--sidebar-width
+		);
+	grid-template-rows: auto 1fr auto;
+	column-gap: var(--column-gap);
+	row-gap: var(--row-gap);
+	padding: 0 2rem;
+	min-height: 100vh;
+	width: 100%;
+	max-width: var(--site-max-width);
+	margin: 0 auto;
+
+	@media (max-width: 768px) {
+		grid-template-areas: 'header' 'main' 'footer';
+		grid-template-columns: 1fr;
+		padding: 0 1rem;
+	}
 }
 
-article header h1 {
-	margin-block-end: 0.2em;
-}
-
-article header time {
-	color: var(--text-secondary);
-	font-size: var(--text-sm);
-}
+/* ==========================================================================
+   Components
+   ========================================================================== */
 
 /* Site Header */
 .site-header {
@@ -170,8 +185,13 @@ article header time {
 .site-header__quote {
 	color: var(--accent);
 	font-family: var(--font-mono);
+
+	@media (max-width: 768px) {
+		display: none;
+	}
 }
 
+/* Hamburger */
 .hamburger {
 	display: none;
 	background: none;
@@ -179,6 +199,10 @@ article header time {
 	font-size: 1.5rem;
 	cursor: pointer;
 	color: var(--text);
+
+	@media (max-width: 768px) {
+		display: block;
+	}
 }
 
 /* Sidebar */
@@ -190,6 +214,23 @@ article header time {
 	max-height: 100vh;
 	font-size: var(--text-sm);
 	color: var(--text-tertiary);
+
+	@media (max-width: 768px) {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 250px;
+		height: 100vh;
+		transform: translateX(-100%);
+		transition: transform 250ms ease;
+		z-index: 100;
+		background: var(--bg);
+		justify-self: start;
+
+		&.is-open {
+			transform: translateX(0);
+		}
+	}
 }
 
 .sidebar__links,
@@ -197,26 +238,38 @@ article header time {
 	list-style: none;
 	padding: 0;
 	margin: 0;
-}
 
-.sidebar__links li,
-.sidebar__social li {
-	margin-bottom: 0.5rem;
+	& li {
+		margin-bottom: 0.5rem;
+	}
+
+	& a {
+		display: block;
+		transition: color 150ms ease;
+
+		&:hover {
+			color: var(--accent);
+		}
+	}
 }
 
 .sidebar__separator {
 	border: none;
 	border-top: 1px solid var(--border);
 	margin: 1rem 0;
-}
 
-.sidebar__separator:after {
-	content: none;
+	&::after {
+		content: none;
+	}
 }
 
 /* Main Content */
 .site-main {
 	grid-area: main;
+
+	@media (max-width: 768px) {
+		padding: 1rem 0;
+	}
 }
 
 /* Site Footer */
@@ -240,6 +293,7 @@ article header time {
 	justify-content: space-between;
 	align-items: center;
 	margin-bottom: 1rem;
+	font-size: var(--text-sm);
 }
 
 .page-header__slug {
@@ -254,6 +308,18 @@ article header time {
 	text-decoration: none;
 	display: inline-flex;
 	transition: color 150ms ease;
+
+	&:hover .ascii-button__text {
+		color: var(--accent);
+	}
+
+	&:hover .ascii-button__bracket:first-child {
+		transform: translateX(-3px);
+	}
+
+	&:hover .ascii-button__bracket:last-child {
+		transform: translateX(3px);
+	}
 }
 
 .ascii-button__bracket {
@@ -264,18 +330,27 @@ article header time {
 	color: var(--text-tertiary);
 }
 
-.ascii-button:hover .ascii-button__bracket:first-child {
-	transform: translateX(-3px);
-}
-
-.ascii-button:hover .ascii-button__bracket:last-child {
-	transform: translateX(3px);
-}
-
+/* Article */
 article {
 	margin: 32px 0 64px 0;
+
+	& header {
+		& h1 {
+			margin-block-end: 0.2em;
+
+			& a {
+				color: var(--text);
+			}
+		}
+
+		& time {
+			color: var(--text-secondary);
+			font-size: var(--text-sm);
+		}
+	}
 }
 
+/* Horizontal Rule */
 hr {
 	border: none;
 	border-top: 1px double var(--border);
@@ -283,22 +358,24 @@ hr {
 	overflow: visible;
 	text-align: center;
 	height: 4px;
+
+	&::after {
+		background: var(--bg);
+		content: '§';
+		padding: 0 4px;
+		position: relative;
+		top: -0.7em;
+	}
 }
 
-hr:after {
-	background: var(--bg);
-	content: '§';
-	padding: 0 4px;
-	position: relative;
-	top: -0.7em;
-}
-
+/* Blockquote */
 blockquote {
 	border-left: 2px solid var(--accent);
 	padding-left: 1em;
 	margin-left: 1em;
 }
 
+/* Code */
 code {
 	font-family: var(--font-mono);
 	color: var(--accent);
@@ -311,12 +388,13 @@ code {
 pre {
 	background-color: oklch(from var(--accent) l c h / 10%);
 	border-radius: 0.4em;
+
+	& code {
+		background-color: inherit;
+	}
 }
 
-pre code {
-	background-color: inherit;
-}
-
+/* Media */
 img,
 video,
 iframe {
@@ -324,6 +402,7 @@ iframe {
 	height: auto;
 }
 
+/* Microblog */
 .microblog_conversation {
 	margin: 16px 0;
 }
@@ -338,26 +417,29 @@ iframe {
 	border-radius: 1em;
 }
 
-.microblog_time a {
-	color: var(--text-secondary);
+.microblog_time {
+	& a {
+		color: var(--text-secondary);
+	}
 }
 
+/* Bookshelf */
 .bookshelf_book {
 	min-height: 140px;
 	margin-top: 4px;
 	margin-bottom: 8px;
-}
 
-.bookshelf_book img {
-	min-height: 100px;
-	width: 80px !important;
-	min-width: 80px !important;
-	max-height: 140px !important;
-	margin-right: 8px;
-	padding-right: 0 !important;
-	border-radius: 6px !important;
-	background-color: var(--text-tertiary);
-	justify-content: center;
+	& img {
+		min-height: 100px;
+		width: 80px !important;
+		min-width: 80px !important;
+		max-height: 140px !important;
+		margin-right: 8px;
+		padding-right: 0 !important;
+		border-radius: 6px !important;
+		background-color: var(--text-tertiary);
+		justify-content: center;
+	}
 }
 
 .bookshelf_author {
@@ -371,44 +453,10 @@ iframe {
 	font-size: 1em;
 }
 
+/* ==========================================================================
+   Utilities
+   ========================================================================== */
+
 .font-mono {
 	font-family: var(--font-mono);
-}
-
-/* Mobile Responsive */
-@media (max-width: 768px) {
-	body.site-layout {
-		grid-template-areas: 'header' 'main' 'footer';
-		grid-template-columns: 1fr;
-		padding: 0 1rem;
-	}
-
-	.hamburger {
-		display: block;
-	}
-
-	.sidebar {
-		position: fixed;
-		top: 0;
-		left: 0;
-		width: 250px;
-		height: 100vh;
-		transform: translateX(-100%);
-		transition: transform 250ms ease;
-		z-index: 100;
-		background: var(--bg);
-		justify-self: start;
-	}
-
-	.sidebar.is-open {
-		transform: translateX(0);
-	}
-
-	.site-header__quote {
-		display: none;
-	}
-
-	.site-main {
-		padding: 1rem 0;
-	}
 }
