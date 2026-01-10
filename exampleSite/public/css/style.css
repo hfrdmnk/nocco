@@ -47,12 +47,13 @@
    ========================================================================== */
 
 :root {
-	--bg: #f7f7f4;
-	--text: #2a2720;
-	--text-secondary: oklch(from #2a2720 l c h / 0.6);
-	--text-tertiary: oklch(from #2a2720 l c h / 0.4);
-	--border: oklch(from #2a2720 l c h / 0.2);
-	--accent: #ff5800;
+	--bg: oklch(0.9753 0.004 106.47);
+	--bg-secondary: oklch(from var(--bg) calc(l * 0.98) c h);
+	--text: oklch(0.2736 0.0132 87.57);
+	--text-secondary: oklch(from var(--text) l c h / 0.6);
+	--text-tertiary: oklch(from var(--text) l c h / 0.4);
+	--border: oklch(from var(--text) l c h / 0.2);
+	--accent: oklch(0.6759 0.21747 38.8022);
 
 	--font-headings: 'Host Grotesk', ui-sans-serif, system-ui, sans-serif,
 		'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
@@ -469,7 +470,7 @@ a.card {
 	display: flex;
 	flex-direction: column;
 	gap: 1rem;
-	border: 1px solid var(--border);
+	background-color: var(--bg-secondary);
 	padding: 1.5rem;
 	text-decoration: none;
 	color: inherit;
@@ -593,19 +594,19 @@ a.card {
 	align-items: center;
 	gap: 0.25rem;
 	padding: 1rem;
-	border: 1px solid var(--border);
+	background-color: oklch(from var(--accent) l c h / 0.1);
 }
 
 .card__stat-value {
 	font-family: var(--font-mono);
 	font-size: var(--text-md);
-	color: var(--text-secondary);
+	color: var(--accent);
 }
 
 .card__stat-label {
 	font-family: var(--font-mono);
 	font-size: var(--text-sm);
-	color: var(--text-tertiary);
+	color: oklch(from var(--accent) l c h / 0.7);
 }
 
 /* ==========================================================================
@@ -625,7 +626,6 @@ a.card {
 .photos-grid {
 	display: grid;
 	grid-template-columns: repeat(3, 1fr);
-	gap: 1rem;
 
 	@media (max-width: 768px) {
 		grid-template-columns: repeat(2, 1fr);
@@ -634,7 +634,6 @@ a.card {
 
 .photos-grid__item {
 	display: block;
-	border: 1px solid var(--border);
 	text-decoration: none;
 
 	& img {
