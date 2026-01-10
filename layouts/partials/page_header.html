@@ -1,13 +1,27 @@
 {{ if not .IsHome }}
 <div class="page-header">
 	<div class="page-header__slug">
-		/{{ with .File }}{{ .ContentBaseName }}{{ else }}{{ .Title | urlize }}{{ end
-		}}
+		/{{ with .File }}{{ .ContentBaseName }}{{ else }}{{ .Title | urlize }}{{ end }}
 	</div>
-	<a href="{{ .Site.BaseURL }}" class="ascii-button">
-		<span class="ascii-button__bracket">[</span
-		><span class="ascii-button__text">back</span
-		><span class="ascii-button__bracket">]</span>
-	</a>
+
+	{{/* Determine back link based on category */}}
+	{{ $backUrl := .Site.BaseURL }}
+	{{ $backText := "back" }}
+
+	{{ with .GetTerms "categories" }}
+		{{ $category := (index . 0).Title | lower }}
+		{{ if eq $category "photo" }}
+			{{ $backUrl = "/photos/" }}
+			{{ $backText = "back to photos" }}
+		{{ else if eq $category "race" }}
+			{{ $backUrl = "/races/" }}
+			{{ $backText = "back to races" }}
+		{{ else if eq $category "macro" }}
+			{{ $backUrl = "/macro/" }}
+			{{ $backText = "back to macro" }}
+		{{ end }}
+	{{ end }}
+
+	<a href="{{ $backUrl }}" class="ascii-button">{{ $backText }}</a>
 </div>
 {{ end }}

@@ -1,0 +1,9 @@
+{{ define "main" }}
+{{ with .Content }}<div class="section-intro">{{ . }}</div>{{ end }}
+<div class="card-list">
+	{{ $macroPages := where .Site.RegularPages "Params.categories" "intersect" (slice "macro") }}
+	{{ range $macroPages.ByDate.Reverse }}
+		{{ partial "card-macro.html" . }}
+	{{ end }}
+</div>
+{{ end }}

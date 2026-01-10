@@ -1,4 +1,5 @@
 {{ define "main" }}
+{{ with .Content }}<div class="section-intro">{{ . }}</div>{{ end }}
 <div class="photos-grid">
 	{{/* Get all posts with category "photo" */}}
 	{{ $photoPages := where .Site.RegularPages "Params.categories" "intersect" (slice "photo") }}
