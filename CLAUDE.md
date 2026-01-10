@@ -15,7 +15,7 @@ cd exampleSite
 hugo server
 ```
 
-Site will be at http://localhost:1313/
+Site will be at http://localhost:1313/. Don't run this yourself, just check if localhost:1313 is running and if not, prompt the user to start it themselves.
 
 ### Code Formatting
 
@@ -50,7 +50,7 @@ layouts/
 
 ### Theme Variables
 
-CSS color scheme defined in `static/css/style.css`:
+CSS color scheme defined in `static/css/style.css`:j
 
 - `--background`, `--background-alt`
 - `--text`, `--text-alt`
