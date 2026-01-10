@@ -7,7 +7,6 @@
 	{{/* Determine back link based on category */}}
 	{{ $backUrl := .Site.BaseURL }}
 	{{ $backText := "back" }}
-
 	{{ with .GetTerms "categories" }}
 		{{ $category := (index . 0).Title | lower }}
 		{{ if eq $category "photo" }}
@@ -22,6 +21,8 @@
 		{{ end }}
 	{{ end }}
 
-	<a href="{{ $backUrl }}" class="ascii-button">{{ $backText }}</a>
+	<a href="{{ $backUrl }}" class="ascii-button">
+		<span class="ascii-button__text">{{ $backText }}</span>
+	</a>
 </div>
 {{ end }}
