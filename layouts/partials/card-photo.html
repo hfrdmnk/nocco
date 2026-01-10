@@ -31,11 +31,11 @@
 	{{ end }}
 	<footer class="card__footer">
 		<time class="card__date dt-published" datetime="{{ .Date.Format "2006-01-02" }}">
-			{{ .Date.Format "2 January 2006" }}
+			<span class="prefix">~</span>{{ .Date.Format "2 January 2006" }}
 		</time>
 		{{ with $location }}
 		<span class="card__location p-location">
-			{{ . }}
+			<span class="prefix">@</span>{{ . }}
 		</span>
 		{{ end }}
 	</footer>

@@ -16,7 +16,7 @@
 		<h1 class="p-name"><a href="{{ .Permalink }}">{{ .Title }}</a></h1>
 		{{ end }}
 		<time class="card__date dt-published">
-			{{ .Date.Format "2 January 2006" }}
+			<span class="prefix">~</span>{{ .Date.Format "2 January 2006" }}
 		</time>
 	</header>
 	{{ .Content }}

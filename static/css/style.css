@@ -633,6 +633,10 @@ a.card {
 	flex-shrink: 0;
 }
 
+.prefix {
+	opacity: 0.5;
+}
+
 /* Remove p margins inside cards except between consecutive p elements */
 .card p {
 	margin: 0;
