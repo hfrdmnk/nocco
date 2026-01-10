@@ -1,9 +1,9 @@
 <aside class="sidebar" id="sidebar">
 	<nav class="sidebar__nav">
 		<ul class="sidebar__links">
-			<li><a href="/">/</a></li>
+			<li><a href="/"{{ if .IsHome }} class="is-active"{{ end }}>/</a></li>
 			{{ range .Site.Menus.main }}
-			<li><a href="{{ .URL | relLangURL | safeURL }}">/{{ .Name | lower }}</a></li>
+			<li><a href="{{ .URL | relLangURL | safeURL }}"{{ if eq $.Page.RelPermalink .URL }} class="is-active"{{ end }}>/{{ .Name | lower }}</a></li>
 			{{ end }}
 		</ul>
 		{{ with .Site.Params.social }}
