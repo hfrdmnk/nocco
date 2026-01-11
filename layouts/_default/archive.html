@@ -3,7 +3,9 @@
 <div class="h-feed archive">
 	<p class="p-name sr-only">{{ .Site.Title }} Archive</p>
 	<ul class="archive__list">
-	{{ range .Paginator.Pages }}
+	{{/* Get all posts and sort by date descending */}}
+	{{ $posts := where .Site.RegularPages "Type" "post" }}
+	{{ range $posts.ByDate.Reverse }}
 		{{ $category := "" }}
 		{{ with .GetTerms "categories" }}
 			{{ $category = (index . 0).Title | lower }}
@@ -48,5 +50,4 @@
 	{{ end }}
 	</ul>
 </div>
-{{ partial "pagination.html" . }}
 {{ end }}
