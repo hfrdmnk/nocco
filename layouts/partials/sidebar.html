@@ -6,12 +6,12 @@
 			<li><a href="{{ .URL | relLangURL | safeURL }}"{{ if eq $.Page.RelPermalink .URL }} class="is-active"{{ end }}>/{{ .Name | lower }}</a></li>
 			{{ end }}
 		</ul>
-		{{ with .Site.Params.social }}
+		{{ if or .Site.Params.author_username .Site.Params.bluesky_username .Site.Params.email }}
 		<hr class="sidebar__separator" />
 		<ul class="sidebar__social">
-			{{ with .mastodon }}<li><a href="{{ . }}" rel="me">@Mastodon</a></li>{{ end }}
-			{{ with .bluesky }}<li><a href="{{ . }}">@Bluesky</a></li>{{ end }}
-			{{ with .email }}<li><a href="mailto:{{ . }}">@Mail</a></li>{{ end }}
+			{{ with .Site.Params.author_username }}<li><a href="https://micro.blog/{{ . }}">@Micro.blog</a></li>{{ end }}
+			{{ with .Site.Params.bluesky_username }}<li><a href="https://bsky.app/profile/{{ . }}">@Bluesky</a></li>{{ end }}
+			{{ with .Site.Params.email }}<li><a href="mailto:{{ . }}">@Mail</a></li>{{ end }}
 		</ul>
 		{{ end }}
 	</nav>

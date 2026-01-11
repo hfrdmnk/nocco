@@ -10,13 +10,8 @@ theme_seconds = "1"
 description = "A minimal example site for the Nocco theme."
 header_quote = "Trust the Process."
 footer_quote = "Less, but better."
-
-[params.author]
-username = "example"
-
-[params.social]
-mastodon = "https://mastodon.social/@username"
-bluesky = "https://bsky.app/profile/username"
+author_username = "example"
+bluesky_username = "example.bsky.social"
 email = "hello@example.com"
 
 [[menus.main]]
