@@ -102,6 +102,12 @@
    Base Styles
    ========================================================================== */
 
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
 ::selection {
 	background: oklch(from var(--accent) l c h / 0.1);
 	color: var(--accent);
