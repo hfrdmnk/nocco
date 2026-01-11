@@ -19,7 +19,9 @@
 			<span class="prefix">~</span>{{ .Date.Format "2 January 2006" }}
 		</time>
 	</header>
-	{{ .Content }}
+	<div class="e-content">
+		{{ .Content }}
+	</div>
 </article>
 {{ end }}
 {{ if .Site.Params.include_conversation }}

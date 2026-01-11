@@ -90,11 +90,10 @@
 	);
 
 	@media (prefers-color-scheme: dark) {
-		--bg: #121212;
-		--text: #eeeeee;
-		--text-secondary: oklch(from #eeeeee l c h / 0.6);
-		--text-tertiary: oklch(from #eeeeee l c h / 0.4);
-		--border: oklch(from #eeeeee l c h / 0.2);
+		--bg: oklch(0.1678 0.0132 87.57);
+		--bg-secondary: oklch(from var(--bg) calc(l * 1.2) c h);
+		--text: oklch(0.9753 0.004 106.47);
+		--border: oklch(0.2736 0.0132 87.57);
 	}
 }
 
@@ -106,6 +105,45 @@
 *::before,
 *::after {
 	box-sizing: border-box;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+ul,
+ol,
+li,
+figure,
+figcaption {
+	margin: 0;
+	padding: 0;
+}
+
+ul,
+ol {
+	list-style: none;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+	display: block;
+	max-width: 100%;
+}
+
+button,
+input,
+select,
+textarea {
+	font: inherit;
 }
 
 ::selection {
@@ -171,6 +209,37 @@ a {
 
 :not(h1, h2, h3, h4, h5, h6) > a {
 	font-family: var(--font-mono);
+}
+
+/* Content Links - Highlight Animation */
+.e-content a,
+.card__content a,
+article .single-photo__content a,
+article .single-race__content a {
+	font-family: var(--font-mono);
+	color: var(--accent);
+	text-decoration: underline;
+	text-decoration-color: oklch(from var(--accent) l c h / 0.3);
+	text-underline-offset: 2px;
+	background-position: 0% 100%;
+	background-image: linear-gradient(var(--accent), var(--accent));
+	background-repeat: no-repeat;
+	background-size: 0% 100%;
+	transition: background 0.3s ease-in-out,
+		text-decoration-color 0.3s ease-in-out;
+}
+
+.e-content a:hover,
+.e-content a:focus,
+.card__content a:hover,
+.card__content a:focus,
+article .single-photo__content a:hover,
+article .single-photo__content a:focus,
+article .single-race__content a:hover,
+article .single-race__content a:focus {
+	background-size: 100% 100%;
+	text-decoration-color: transparent;
+	color: var(--bg);
 }
 
 /* ==========================================================================
@@ -411,6 +480,7 @@ body.site-layout {
 .sidebar__separator {
 	border: none;
 	border-top: 1px solid var(--border);
+	margin: 1rem 0;
 
 	&::after {
 		content: none;

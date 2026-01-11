@@ -3,11 +3,11 @@
 
 	var CONFIG = {
 		selector:
-			'.sidebar__links a, .sidebar__social a, article p a, article li a',
+			'.site-header__title, .sidebar__links a, .sidebar__social a, .card__date-link, .ascii-button__text',
 		chars: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%&*<>{}[]',
 		scrambleDuration: 150,
 		resolveDuration: 250,
-		fps: 20
+		fps: 20,
 	};
 
 	function prefersReducedMotion() {
@@ -16,17 +16,35 @@
 
 	function TextScrambler(element) {
 		this.element = element;
-		this.originalText = element.textContent;
+		this.textNode = this.findTextNode(element);
+		this.originalText = this.textNode ? this.textNode.textContent : '';
 		this.frameRequest = null;
 		this.isAnimating = false;
 	}
+
+	TextScrambler.prototype.findTextNode = function (element) {
+		var walker = document.createTreeWalker(
+			element,
+			NodeFilter.SHOW_TEXT,
+			null,
+			false
+		);
+		var lastTextNode = null;
+		var node;
+		while ((node = walker.nextNode())) {
+			if (node.textContent.trim()) {
+				lastTextNode = node;
+			}
+		}
+		return lastTextNode;
+	};
 
 	TextScrambler.prototype.getRandomChar = function () {
 		return CONFIG.chars[Math.floor(Math.random() * CONFIG.chars.length)];
 	};
 
 	TextScrambler.prototype.scramble = function () {
-		if (this.isAnimating || prefersReducedMotion()) return;
+		if (!this.textNode || this.isAnimating || prefersReducedMotion()) return;
 		this.isAnimating = true;
 
 		var self = this;
@@ -46,7 +64,7 @@
 			var progress = Math.min(elapsed / totalDuration, 1);
 
 			if (elapsed < CONFIG.scrambleDuration) {
-				self.element.textContent = self.originalText
+				self.textNode.textContent = self.originalText
 					.split('')
 					.map(function (char) {
 						return char === ' ' ? ' ' : self.getRandomChar();
@@ -59,7 +77,7 @@
 					self.originalText.length * resolveProgress
 				);
 
-				self.element.textContent = self.originalText
+				self.textNode.textContent = self.originalText
 					.split('')
 					.map(function (char, i) {
 						if (char === ' ') return ' ';
@@ -84,7 +102,9 @@
 			cancelAnimationFrame(this.frameRequest);
 			this.frameRequest = null;
 		}
-		this.element.textContent = this.originalText;
+		if (this.textNode) {
+			this.textNode.textContent = this.originalText;
+		}
 		this.isAnimating = false;
 	};
 
