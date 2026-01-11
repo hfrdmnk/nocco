@@ -677,6 +677,14 @@ body.site-layout {
 	}
 }
 
+/* Pagination */
+.pagination {
+	display: flex;
+	justify-content: center;
+	gap: 2rem;
+	padding-block: 3rem;
+}
+
 /* Article */
 article {
 	& header {

@@ -18,16 +18,12 @@
 	{{ .Content }}
 </article>
 {{ end }}
-<nav>
+<nav class="pagination">
 	{{ if $paginator.HasPrev }}
-	<a href="{{ $paginator.Prev.URL }}" title="Previous Page">
-		← Newer Posts
-	</a>
+	<a href="{{ $paginator.Prev.URL }}" class="ascii-button" title="Previous Page">← Newer</a>
 	{{ end }}
 	{{ if $paginator.HasNext }}
-	<a href="{{ $paginator.Next.URL }}">
-		Older Posts →
-	</a>
+	<a href="{{ $paginator.Next.URL }}" class="ascii-button">Older →</a>
 	{{ end }}
 </nav>
 {{ else }}
