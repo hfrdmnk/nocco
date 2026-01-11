@@ -250,7 +250,7 @@ body.site-layout {
 	display: block;
 	width: 1.75rem;
 	height: 2px;
-	background-color: var(--text);
+	background-color: var(--text-tertiary);
 	transform-origin: left;
 	transition: transform 300ms ease;
 }
@@ -284,7 +284,7 @@ body.site-layout {
 	position: absolute;
 	width: 1.5rem;
 	height: 2px;
-	background-color: var(--text);
+	background-color: var(--text-tertiary);
 	transition: transform 500ms ease 300ms;
 }
 
@@ -311,17 +311,18 @@ body.site-layout {
 	position: sticky;
 	top: 2rem;
 	height: fit-content;
-	max-height: 100vh;
+	max-height: 100dvh;
 	font-size: var(--text-sm);
 	color: var(--text-tertiary);
 
 	@media (max-width: 768px) {
 		position: fixed;
 		inset: 0;
+		height: 100dvh;
 		display: flex;
 		flex-direction: column;
-		justify-content: center;
-		padding: 2rem;
+		padding: 1rem;
+		padding-top: 6rem;
 		transform: translateX(100%);
 		transition: transform 500ms ease-in-out;
 		z-index: 100;
@@ -377,7 +378,6 @@ body.site-layout {
 .sidebar__separator {
 	border: none;
 	border-top: 1px solid var(--border);
-	margin: 1rem 0;
 
 	&::after {
 		content: none;
@@ -478,19 +478,8 @@ article {
 /* Horizontal Rule */
 hr {
 	border: none;
-	border-top: 1px double var(--border);
-	color: var(--text-tertiary);
-	overflow: visible;
-	text-align: center;
-	height: 4px;
-
-	&::after {
-		background: var(--bg);
-		content: '§';
-		padding: 0 4px;
-		position: relative;
-		top: -0.7em;
-	}
+	border-top: 1px solid var(--border);
+	width: 100%;
 }
 
 /* Blockquote */
