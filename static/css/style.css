@@ -115,6 +115,7 @@ html {
 	line-height: var(--leading-relaxed);
 	font-size: 100%;
 	overflow-wrap: break-word;
+	overflow-x: hidden;
 }
 
 /* ==========================================================================
@@ -176,7 +177,7 @@ body.site-layout {
 		'.       header  .'
 		'sidebar main    .'
 		'.       footer  .';
-	grid-template-columns: var(--sidebar-width) var(--content-width) var(
+	grid-template-columns: var(--sidebar-width) minmax(0, var(--content-width)) var(
 			--sidebar-width
 		);
 	grid-template-rows: auto 1fr auto;
@@ -187,6 +188,11 @@ body.site-layout {
 	width: 100%;
 	max-width: var(--site-max-width);
 	margin: 0 auto;
+
+	@media (max-width: 1024px) {
+		column-gap: 2rem;
+		padding: 0 1.5rem;
+	}
 
 	@media (max-width: 768px) {
 		grid-template-areas: 'header' 'main' 'footer';
