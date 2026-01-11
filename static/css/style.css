@@ -52,7 +52,7 @@
 	--text: oklch(0.2736 0.0132 87.57);
 	--text-secondary: oklch(from var(--text) l c h / 0.6);
 	--text-tertiary: oklch(from var(--text) l c h / 0.4);
-	--border: oklch(from var(--text) l c h / 0.2);
+	--border: oklch(0.7207 0.01 100.05);
 	--accent: oklch(0.6759 0.21747 38.8022);
 
 	--font-headings: 'Host Grotesk', ui-sans-serif, system-ui, sans-serif,
@@ -113,7 +113,8 @@ html {
 	font-family: var(--font-sans);
 	font-weight: 300;
 	line-height: var(--leading-relaxed);
-	font-size: 16px;
+	font-size: 100%;
+	overflow-wrap: break-word;
 }
 
 /* ==========================================================================
@@ -192,6 +193,10 @@ body.site-layout {
 		grid-template-columns: 1fr;
 		padding: 0 1rem;
 	}
+
+	@media (max-width: 480px) {
+		padding: 0 0.75rem;
+	}
 }
 
 /* ==========================================================================
@@ -250,7 +255,7 @@ body.site-layout {
 	display: block;
 	width: 1.75rem;
 	height: 2px;
-	background-color: var(--text-tertiary);
+	background-color: var(--border);
 	transform-origin: left;
 	transition: transform 300ms ease;
 }
@@ -284,7 +289,7 @@ body.site-layout {
 	position: absolute;
 	width: 1.5rem;
 	height: 2px;
-	background-color: var(--text-tertiary);
+	background-color: var(--border);
 	transition: transform 500ms ease 300ms;
 }
 
@@ -350,10 +355,9 @@ body.site-layout {
 	list-style: none;
 	padding: 0;
 	margin: 0;
-
-	& li {
-		margin-bottom: 0.5rem;
-	}
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
 
 	& a {
 		display: block;
@@ -369,9 +373,7 @@ body.site-layout {
 	}
 
 	@media (max-width: 768px) {
-		& li {
-			margin-bottom: 1rem;
-		}
+		gap: 1rem;
 	}
 }
 
@@ -494,14 +496,15 @@ code {
 	font-family: var(--font-mono);
 	color: var(--accent);
 	background-color: oklch(from var(--accent) l c h / 10%);
-	padding: 3px;
+	padding: 0.2em;
 	border-radius: 0.4em;
-	font-size: 16px;
+	font-size: inherit;
 }
 
 pre {
 	background-color: oklch(from var(--accent) l c h / 10%);
 	border-radius: 0.4em;
+	overflow-x: auto;
 
 	& code {
 		background-color: inherit;
@@ -518,12 +521,12 @@ iframe {
 
 /* Microblog */
 .microblog_conversation {
-	margin: 16px 0;
+	margin: 1rem 0;
 }
 
 .microblog_post {
-	padding-top: 16px;
-	margin: 16px 0;
+	padding-top: 1rem;
+	margin: 1rem 0;
 	border-top: 1px solid var(--text-tertiary);
 }
 
@@ -539,18 +542,18 @@ iframe {
 
 /* Bookshelf */
 .bookshelf_book {
-	min-height: 140px;
-	margin-top: 4px;
-	margin-bottom: 8px;
+	min-height: 8.75rem;
+	margin-top: 0.25rem;
+	margin-bottom: 0.5rem;
 
 	& img {
-		min-height: 100px;
-		width: 80px !important;
-		min-width: 80px !important;
-		max-height: 140px !important;
-		margin-right: 8px;
+		min-height: 6.25rem;
+		width: 5rem !important;
+		min-width: 5rem !important;
+		max-height: 8.75rem !important;
+		margin-right: 0.5rem;
 		padding-right: 0 !important;
-		border-radius: 6px !important;
+		border-radius: 0.375rem !important;
 		background-color: var(--text-tertiary);
 		justify-content: center;
 	}
@@ -754,6 +757,10 @@ a.card {
 	@media (max-width: 768px) {
 		grid-template-columns: repeat(2, 1fr);
 	}
+
+	@media (max-width: 480px) {
+		grid-template-columns: 1fr;
+	}
 }
 
 .photos-grid__item {
@@ -808,11 +815,16 @@ a.card {
    Single Race View
    ========================================================================== */
 
+article:has(.single-race__header) {
+	display: flex;
+	flex-direction: column;
+	gap: 1.5rem;
+}
+
 .single-race__header {
 	display: flex;
 	flex-direction: column;
 	gap: 0.5rem;
-	margin-bottom: 1.5rem;
 }
 
 .single-race__meta {
@@ -822,7 +834,6 @@ a.card {
 }
 
 .single-race__content {
-	margin-top: 1.5rem;
 	color: var(--text-secondary);
 }
 
