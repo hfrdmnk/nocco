@@ -9,6 +9,34 @@
 	</title>
 
 	<meta name="description" content="{{ .Summary }}">
+
+	<!-- Open Graph -->
+	<meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}">
+	<meta property="og:url" content="{{ .Permalink }}">
+	<meta property="og:title" content="{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title | default .Site.Title }}{{ end }}">
+	<meta property="og:description" content="{{ with .Description }}{{ . }}{{ else }}{{ .Summary | plainify | truncate 200 }}{{ end }}">
+	{{ with .Params.photos }}
+	<meta property="og:image" content="{{ index . 0 }}">
+	{{ else }}
+	<meta property="og:image" content="{{ $.Site.Params.author_avatar }}">
+	{{ end }}
+
+	<!-- Twitter Card -->
+	<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:url" content="{{ .Permalink }}">
+	<meta name="twitter:title" content="{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title | default .Site.Title }}{{ end }}">
+	<meta name="twitter:description" content="{{ with .Description }}{{ . }}{{ else }}{{ .Summary | plainify | truncate 200 }}{{ end }}">
+	{{ with .Params.photos }}
+	<meta name="twitter:image" content="{{ index . 0 }}">
+	{{ else }}
+	<meta name="twitter:image" content="{{ $.Site.Params.author_avatar }}">
+	{{ end }}
+
+	<!-- Fediverse -->
+	{{ with .Site.Params.mastodon_username }}
+	<meta name="fediverse:creator" content="{{ . }}">
+	{{ end }}
+
 	<link rel="shortcut icon" href="https://micro.blog/{{ .Site.Params.author.username }}/favicon.png" type="image/x-icon" />
 	<link rel="stylesheet" href="{{ "css/style.css" | relURL }}?{{ .Site.Params.theme_seconds }}">
 	<link rel="stylesheet" href="{{ "custom.css" | relURL }}?{{ .Site.Params.theme_seconds }}">
