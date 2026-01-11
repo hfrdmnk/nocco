@@ -26,9 +26,11 @@
 	{{ end }}
 {{ end }}
 
-<a href="{{ .Permalink }}" class="card card--race h-entry u-url">
+<article class="card card--race h-entry">
 	<header class="card__header">
-		<h2 class="card__title p-name">{{ $raceTitle }}</h2>
+		<h2 class="card__title p-name">
+			<a href="{{ .Permalink }}" class="card__title-link u-url">{{ $raceTitle }}</a>
+		</h2>
 	</header>
 	<div class="card__stats">
 		{{ with $distance }}
@@ -60,4 +62,4 @@
 		</span>
 		{{ end }}
 	</footer>
-</a>
+</article>

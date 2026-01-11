@@ -25,18 +25,20 @@
 	{{ end }}
 {{ end }}
 
-<a href="{{ .Permalink }}" class="card card--photo h-entry u-url">
+<article class="card card--photo h-entry">
 	{{ with $image }}
 	<img src="{{ . }}" alt="" class="card__image u-photo">
 	{{ end }}
 	<footer class="card__footer">
-		<time class="card__date dt-published" datetime="{{ .Date.Format "2006-01-02" }}">
-			<span class="prefix">~</span>{{ .Date.Format "2 January 2006" }}
-		</time>
+		<a href="{{ $.Permalink }}" class="card__date-link u-url">
+			<time class="card__date dt-published" datetime="{{ .Date.Format "2006-01-02" }}">
+				<span class="prefix">~</span>{{ .Date.Format "2 January 2006" }}
+			</time>
+		</a>
 		{{ with $location }}
 		<span class="card__location p-location">
 			<span class="prefix">@</span>{{ . }}
 		</span>
 		{{ end }}
 	</footer>
-</a>
+</article>

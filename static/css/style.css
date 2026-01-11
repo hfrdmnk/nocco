@@ -626,20 +626,26 @@ iframe {
    Content Cards (shared)
    ========================================================================== */
 
-a.card {
+.card {
 	display: flex;
 	flex-direction: column;
 	gap: 1rem;
 	background-color: var(--bg-secondary);
 	padding: 1.5rem;
-	text-decoration: none;
 	color: inherit;
 	font-family: var(--font-sans);
 	transition: opacity var(--transition-duration) var(--ease);
 
-	&:hover {
+	&:has(.card__title-link:hover),
+	&:has(.card__date-link:hover) {
 		opacity: var(--hover-opacity);
 	}
+}
+
+.card__title-link,
+.card__date-link {
+	text-decoration: none;
+	color: inherit;
 }
 
 .card__date {
@@ -724,6 +730,11 @@ a.card {
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
+		padding: 1.5rem;
+
+		@media (max-width: 480px) {
+			padding: 1.5rem 0.75rem;
+		}
 	}
 }
 

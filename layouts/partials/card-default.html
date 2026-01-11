@@ -1,11 +1,13 @@
 {{/* Default card: Simple microblog post with content and date */}}
-<a href="{{ .Permalink }}" class="card card--default h-entry u-url">
+<article class="card card--default h-entry">
 	<div class="card__content e-content">
 		{{ .Content }}
 	</div>
-	<footer>
-		<time class="card__date dt-published" datetime="{{ .Date.Format "2006-01-02" }}">
-			<span class="prefix">~</span>{{ .Date.Format "2 January 2006" }}
-		</time>
+	<footer class="card__footer">
+		<a href="{{ .Permalink }}" class="card__date-link u-url">
+			<time class="card__date dt-published" datetime="{{ .Date.Format "2006-01-02" }}">
+				<span class="prefix">~</span>{{ .Date.Format "2 January 2006" }}
+			</time>
+		</a>
 	</footer>
-</a>
+</article>
