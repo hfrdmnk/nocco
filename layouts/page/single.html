@@ -1,8 +1,35 @@
 {{ define "main" }}
-<article class="h-entry">
-	<header class="p-name">
-		<h1><a href="{{ .Permalink }}">{{ .Title }}</a></h1>
-	</header>
-	{{ .Content }}
-</article>
+{{ if in .Permalink "/races" }}
+	{{/* Races list page */}}
+	{{ with .Content }}<div class="section-intro">{{ . }}</div>{{ end }}
+	<div class="h-feed">
+		<p class="p-name sr-only">{{ .Site.Title }} Races</p>
+		<div class="card-list">
+		{{ $racePages := where .Site.RegularPages "Params.categories" "intersect" (slice "race") }}
+		{{ range $racePages.ByDate.Reverse }}
+			{{ partial "card-race.html" . }}
+		{{ end }}
+		</div>
+	</div>
+{{ else if in .Permalink "/macro" }}
+	{{/* Macro list page */}}
+	{{ with .Content }}<div class="section-intro">{{ . }}</div>{{ end }}
+	<div class="h-feed">
+		<p class="p-name sr-only">{{ .Site.Title }} Blog</p>
+		<div class="card-list">
+		{{ $macroPages := where .Site.RegularPages "Params.categories" "intersect" (slice "macro") }}
+		{{ range $macroPages.ByDate.Reverse }}
+			{{ partial "card-macro.html" . }}
+		{{ end }}
+		</div>
+	</div>
+{{ else }}
+	{{/* Default page layout */}}
+	<article class="h-entry">
+		<header class="p-name">
+			<h1><a href="{{ .Permalink }}">{{ .Title }}</a></h1>
+		</header>
+		{{ .Content }}
+	</article>
+{{ end }}
 {{ end }}
