@@ -1,6 +1,8 @@
 {{ define "main" }}
 {{ with .Content }}<div class="section-intro">{{ . }}</div>{{ end }}
-<div class="photos-grid">
+<div class="h-feed">
+	<p class="p-name sr-only">{{ .Site.Title }} Photos</p>
+	<div class="photos-grid">
 	{{/* Get all posts with category "photo" */}}
 	{{ $photoPages := where .Site.RegularPages "Params.categories" "intersect" (slice "photo") }}
 	{{ range $photoPages.ByDate.Reverse }}
@@ -25,5 +27,6 @@
 			{{ end }}
 		</a>
 	{{ end }}
+	</div>
 </div>
 {{ end }}

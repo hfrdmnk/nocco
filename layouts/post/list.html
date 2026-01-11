@@ -1,0 +1,52 @@
+{{ define "main" }}
+{{ with .Content }}<div class="section-intro">{{ . }}</div>{{ end }}
+<div class="h-feed archive">
+	<p class="p-name sr-only">{{ .Site.Title }} Archive</p>
+	<ul class="archive__list">
+	{{ range .Paginator.Pages }}
+		{{ $category := "" }}
+		{{ with .GetTerms "categories" }}
+			{{ $category = (index . 0).Title | lower }}
+		{{ end }}
+
+		<li class="archive__item h-entry">
+			<time class="archive__date dt-published" datetime="{{ .Date.Format "2006-01-02" }}">
+				<span class="prefix">~</span>{{ .Date.Format "2006-01-02" }}
+			</time>
+			<a href="{{ .Permalink }}" class="archive__link u-url">
+				{{ if eq $category "photo" }}
+					{{/* Extract location for photos */}}
+					{{ $location := "" }}
+					{{ $contentWithoutImage := .RawContent | replaceRE `!\[.*?\]\(.*?\)\s*` "" | replaceRE `<img[^>]*>\s*` "" }}
+					{{ $lines := split $contentWithoutImage "\n" }}
+					{{ range $lines }}
+						{{ $trimmed := trim . " \r\n\t" }}
+						{{ if and (not $location) $trimmed }}
+							{{ $location = $trimmed }}
+						{{ end }}
+					{{ end }}
+					<span class="archive__title p-name">{{ with $location }}{{ . }}{{ else }}Photo{{ end }}</span>
+				{{ else if eq $category "race" }}
+					{{/* Extract race title (first line) */}}
+					{{ $lines := split .RawContent "\n" }}
+					{{ $raceTitle := "" }}
+					{{ range $lines }}
+						{{ $trimmed := trim . " \r\n\t" }}
+						{{ if and (not $raceTitle) $trimmed }}
+							{{ $raceTitle = $trimmed }}
+						{{ end }}
+					{{ end }}
+					<span class="archive__title p-name">{{ $raceTitle }}</span>
+				{{ else }}
+					{{/* Default: use title or truncated content */}}
+					<span class="archive__title p-name">
+						{{ with .Title }}{{ . }}{{ else }}{{ .Summary | plainify | truncate 60 "..." }}{{ end }}
+					</span>
+				{{ end }}
+			</a>
+		</li>
+	{{ end }}
+	</ul>
+</div>
+{{ partial "pagination.html" . }}
+{{ end }}

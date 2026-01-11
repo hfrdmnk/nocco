@@ -242,6 +242,124 @@ article .single-race__content a:focus {
 	color: var(--bg);
 }
 
+/* Prose Content (.e-content) */
+.e-content {
+	line-height: 1.75;
+}
+
+.e-content > :first-child {
+	margin-top: 0;
+}
+
+.e-content > :last-child {
+	margin-bottom: 0;
+}
+
+.e-content p {
+	margin-top: 1.25em;
+	margin-bottom: 1.25em;
+}
+
+.e-content h2,
+.e-content h3,
+.e-content h4 {
+	font-family: var(--font-headings);
+	color: var(--text);
+}
+
+.e-content h2 {
+	font-size: var(--text-2xl);
+	margin-top: 2em;
+	margin-bottom: 1em;
+	line-height: 1.3;
+}
+
+.e-content h3 {
+	font-size: var(--text-xl);
+	margin-top: 1.6em;
+	margin-bottom: 0.6em;
+	line-height: 1.4;
+}
+
+.e-content h4 {
+	font-size: var(--text-lg);
+	margin-top: 1.5em;
+	margin-bottom: 0.5em;
+	line-height: 1.5;
+}
+
+.e-content ul,
+.e-content ol {
+	margin-top: 1.25em;
+	margin-bottom: 1.25em;
+	padding-left: 1.5em;
+}
+
+.e-content ul {
+	list-style-type: disc;
+}
+
+.e-content ol {
+	list-style-type: decimal;
+}
+
+.e-content li {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.e-content li:first-child {
+	margin-top: 0;
+}
+
+.e-content li:last-child {
+	margin-bottom: 0;
+}
+
+.e-content blockquote {
+	margin-top: 1.5em;
+	margin-bottom: 1.5em;
+	padding-left: 1em;
+	border-left: 2px solid var(--border);
+	font-style: italic;
+}
+
+.e-content blockquote p {
+	margin: 0;
+}
+
+.e-content strong {
+	font-weight: 500;
+	color: var(--text);
+}
+
+.e-content img {
+	margin-top: 2em;
+	margin-bottom: 2em;
+	border-radius: 0.25em;
+}
+
+.e-content figure {
+	margin-top: 2em;
+	margin-bottom: 2em;
+}
+
+.e-content figure img {
+	margin: 0;
+}
+
+.e-content figcaption {
+	margin-top: 0.75em;
+	font-size: var(--text-sm);
+	color: var(--text-tertiary);
+	text-align: center;
+}
+
+.e-content hr {
+	margin-top: 2.5em;
+	margin-bottom: 2.5em;
+}
+
 /* ==========================================================================
    Layout
    ========================================================================== */
@@ -598,14 +716,13 @@ hr {
 
 /* Blockquote */
 blockquote {
-	border-left: 2px solid var(--accent);
+	border-left: 2px solid var(--border);
 	padding-left: 1em;
-	margin-left: 1em;
 }
 
 /* Code */
 code {
-	font-family: var(--font-mono);
+	font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 	color: var(--accent);
 	background-color: oklch(from var(--accent) l c h / 10%);
 	padding: 0.2em;
@@ -617,9 +734,11 @@ pre {
 	background-color: oklch(from var(--accent) l c h / 10%);
 	border-radius: 0.4em;
 	overflow-x: auto;
+	padding: 1em;
 
 	& code {
 		background-color: inherit;
+		padding: 0;
 	}
 }
 
@@ -707,7 +826,8 @@ iframe {
 	transition: opacity var(--transition-duration) var(--ease);
 
 	&:has(.card__title-link:hover),
-	&:has(.card__date-link:hover) {
+	&:has(.card__date-link:hover),
+	&:has(.card__image-link:hover) {
 		opacity: var(--hover-opacity);
 	}
 }
@@ -974,9 +1094,63 @@ article:has(.single-race__header) {
 }
 
 /* ==========================================================================
+   Archive List
+   ========================================================================== */
+
+.archive__list {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+}
+
+.archive__item {
+	display: flex;
+	align-items: baseline;
+	gap: 1rem;
+}
+
+.archive__date {
+	font-family: var(--font-mono);
+	font-size: var(--text-sm);
+	color: var(--text-tertiary);
+	flex-shrink: 0;
+}
+
+.archive__link {
+	color: var(--text-secondary);
+	min-width: 0;
+	transition: color var(--transition-duration) var(--ease);
+
+	&:hover {
+		color: var(--accent);
+	}
+}
+
+.archive__title {
+	font-family: var(--font-headings);
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: block;
+}
+
+/* ==========================================================================
    Utilities
    ========================================================================== */
 
 .font-mono {
 	font-family: var(--font-mono);
+}
+
+/* Screen reader only - visually hidden but accessible */
+.sr-only {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	white-space: nowrap;
+	border: 0;
 }

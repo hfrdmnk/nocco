@@ -1,8 +1,12 @@
 {{ define "main" }}
-<div class="card-list">
-{{ range ( .Paginate (where .Site.RegularPages "Type" "post")).Pages }}
-	{{ partial "card-dispatcher.html" . }}
-{{ end }}
+{{ with .Content }}<div class="section-intro">{{ . }}</div>{{ end }}
+<div class="h-feed">
+	<p class="p-name sr-only">{{ .Site.Title }}</p>
+	<div class="card-list">
+	{{ range ( .Paginate (where .Site.RegularPages "Type" "post")).Pages }}
+		{{ partial "card-dispatcher.html" . }}
+	{{ end }}
+	</div>
 </div>
 {{ partial "pagination.html" .}}
 {{ end }}

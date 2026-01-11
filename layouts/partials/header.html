@@ -1,5 +1,5 @@
-<header class="site-header">
-	<a href="/" class="site-header__title">{{ .Site.Title }}</a>
+<header class="site-header h-card">
+	<a href="/" class="site-header__title p-name u-url" rel="me">{{ .Site.Title }}</a>
 	{{ with .Site.Params.header_quote }}
 	<span class="site-header__quote">{{ . }}</span>
 	{{ end }}

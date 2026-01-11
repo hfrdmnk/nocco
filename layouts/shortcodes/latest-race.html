@@ -1,0 +1,6 @@
+{{/* Get latest race category post */}}
+{{ $races := where .Site.RegularPages "Params.categories" "intersect" (slice "race") }}
+{{ $races = $races.ByDate.Reverse }}
+{{ with index $races 0 }}
+	{{ partial "card-race.html" . }}
+{{ end }}

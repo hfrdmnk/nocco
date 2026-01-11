@@ -8,7 +8,9 @@
 		{{ end }}
 	</header>
 	<div class="card__excerpt p-summary">
-		{{ .Summary | truncate 200 }}
+		{{ with index (findRE "<p>.*?</p>" .Content 1) 0 }}
+			{{ . | plainify | truncate 200 }}
+		{{ end }}
 	</div>
 	<footer class="card__footer">
 		<time class="card__date dt-published" datetime="{{ .Date.Format "2006-01-02" }}">

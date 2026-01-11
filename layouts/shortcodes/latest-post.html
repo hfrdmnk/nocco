@@ -1,0 +1,7 @@
+{{/* Get latest non-macro, non-photo, non-race post (microblog style) */}}
+{{ $posts := where .Site.RegularPages "Type" "post" }}
+{{ $posts = where $posts "Params.categories" "not intersect" (slice "macro" "photo" "race") }}
+{{ $posts = $posts.ByDate.Reverse }}
+{{ with index $posts 0 }}
+	{{ partial "card-default.html" . }}
+{{ end }}

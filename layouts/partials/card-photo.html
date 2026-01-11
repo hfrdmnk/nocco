@@ -27,7 +27,9 @@
 
 <article class="card card--photo h-entry">
 	{{ with $image }}
-	<img src="{{ . }}" alt="" class="card__image u-photo">
+	<a href="{{ $.Permalink }}" class="card__image-link">
+		<img src="{{ . }}" alt="" class="card__image u-photo">
+	</a>
 	{{ end }}
 	<footer class="card__footer">
 		<a href="{{ $.Permalink }}" class="card__date-link u-url">

@@ -1,0 +1,19 @@
+{{/* Display currently reading books from Micro.blog bookshelf */}}
+{{ with .Site.Data.bookshelf }}
+	{{ $reading := where . "currently_reading" true }}
+	{{ if $reading }}
+	<div class="currently-reading">
+		{{ range $reading }}
+		<div class="bookshelf_book">
+			{{ with .image }}
+			<img src="{{ . }}" alt="{{ $.title }} cover">
+			{{ end }}
+			<div class="bookshelf_info">
+				<div class="bookshelf_title">{{ .title }}</div>
+				<div class="bookshelf_author">{{ .author }}</div>
+			</div>
+		</div>
+		{{ end }}
+	</div>
+	{{ end }}
+{{ end }}

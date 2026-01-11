@@ -1,0 +1,6 @@
+{{/* Get latest macro category post */}}
+{{ $macros := where .Site.RegularPages "Params.categories" "intersect" (slice "macro") }}
+{{ $macros = $macros.ByDate.Reverse }}
+{{ with index $macros 0 }}
+	{{ partial "card-macro.html" . }}
+{{ end }}

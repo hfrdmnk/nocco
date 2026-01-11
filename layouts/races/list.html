@@ -1,9 +1,12 @@
 {{ define "main" }}
 {{ with .Content }}<div class="section-intro">{{ . }}</div>{{ end }}
-<div class="card-list">
+<div class="h-feed">
+	<p class="p-name sr-only">{{ .Site.Title }} Races</p>
+	<div class="card-list">
 	{{ $racePages := where .Site.RegularPages "Params.categories" "intersect" (slice "race") }}
 	{{ range $racePages.ByDate.Reverse }}
 		{{ partial "card-race.html" . }}
 	{{ end }}
+	</div>
 </div>
 {{ end }}

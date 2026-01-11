@@ -1,0 +1,6 @@
+{{/* Get latest photo category post */}}
+{{ $photos := where .Site.RegularPages "Params.categories" "intersect" (slice "photo") }}
+{{ $photos = $photos.ByDate.Reverse }}
+{{ with index $photos 0 }}
+	{{ partial "card-photo.html" . }}
+{{ end }}
