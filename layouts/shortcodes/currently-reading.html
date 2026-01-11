@@ -5,8 +5,8 @@
 	<div class="currently-reading">
 		{{ range $reading }}
 		<div class="bookshelf_book">
-			{{ with .image }}
-			<img src="{{ . }}" alt="{{ $.title }} cover">
+			{{ if .image }}
+			<img src="{{ .image }}" alt="{{ .title }} cover">
 			{{ end }}
 			<div class="bookshelf_info">
 				<div class="bookshelf_title">{{ .title }}</div>
