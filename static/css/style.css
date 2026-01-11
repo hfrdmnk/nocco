@@ -139,7 +139,7 @@ html {
 	background-color: var(--bg);
 	color: var(--text-secondary);
 	font-family: var(--font-sans);
-	font-weight: 300;
+	font-weight: 400;
 	line-height: var(--leading-relaxed);
 	font-size: 100%;
 	overflow-wrap: break-word;
@@ -200,17 +200,21 @@ a {
 .card__content a,
 article .single-photo__content a,
 article .single-race__content a {
-	font-family: var(--font-mono);
-	color: var(--accent);
+	font-family: var(--font-sans);
+	font-weight: 500;
 	text-decoration: underline;
 	text-decoration-color: oklch(from var(--accent) l c h / 0.3);
 	text-underline-offset: 2px;
 	background-position: 0% 100%;
-	background-image: linear-gradient(var(--accent), var(--accent));
+	background-image: linear-gradient(
+		oklch(from var(--accent) l c h / 0.1),
+		oklch(from var(--accent) l c h / 0.1)
+	);
 	background-repeat: no-repeat;
 	background-size: 0% 100%;
 	transition: background 0.3s ease-in-out,
-		text-decoration-color 0.3s ease-in-out;
+		text-decoration-color 0.3s ease-in-out,
+		color 0.3s ease-in-out;
 }
 
 .e-content a:hover,
@@ -223,7 +227,7 @@ article .single-race__content a:hover,
 article .single-race__content a:focus {
 	background-size: 100% 100%;
 	text-decoration-color: transparent;
-	color: var(--bg);
+	color: var(--accent);
 }
 
 /* Prose Content (.e-content) */
