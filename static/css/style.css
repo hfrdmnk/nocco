@@ -190,6 +190,11 @@ body.site-layout {
 	margin: 0 auto;
 
 	@media (max-width: 1024px) {
+		grid-template-areas:
+			'header header'
+			'sidebar main'
+			'footer footer';
+		grid-template-columns: var(--sidebar-width) 1fr;
 		column-gap: 2rem;
 		padding: 0 1.5rem;
 	}
