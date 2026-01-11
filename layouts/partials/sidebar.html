@@ -15,4 +15,7 @@
 		</ul>
 		{{ end }}
 	</nav>
+	{{ with .Site.Params.header_quote }}
+	<span class="sidebar__quote">{{ . }}</span>
+	{{ end }}
 </aside>
